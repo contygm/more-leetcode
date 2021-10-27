@@ -93,3 +93,69 @@ function search(nums: number[], target: number): number {
     
     return -1;
 };
+
+// 1539. Kth Missing Positive Number
+// NOTE: 0 is an integer
+function findKthPositive(arr: number[], k: number): number {
+    
+    let left = 0, right = arr.length - 1;
+    
+    // find range in array where the missing int should be
+    while(right >= left) {
+        
+        const mid = left + ~~((right-left) / 2); 
+        
+        // # of positive ints missing from this point
+        const diff = arr[mid] - mid - 1;
+        
+        if (diff < k) { // keep going right
+            left = mid + 1;
+        } else { // go left
+            right = mid - 1;
+        }
+    }
+    
+    // left index + amount of missing numbers = win
+    return left + k;
+};
+
+// 1011. Capacity To Ship Packages Within D Days
+// find ship weight limit needed for given days
+function shipWithinDays(weights: number[], days: number): number {
+    
+    // count days needed for given weight limit
+    const daysForLimit = (limit:number):number => {
+        let day = 1,
+            total = 0; 
+        
+        for(let i = 0; i < weights.length; i++) {
+            total += weights[i];
+
+            if(total > limit) { // reached capacity
+                total = weights[i]; // put weight on next ship
+                day++;
+            }
+        }
+		
+		return day; 
+    }
+    
+    let low:number = Math.max(...weights), 
+        high:number = weights.reduce((a, b) => a+b);
+    
+    // binary search for ideal weight
+	// NOTE: not dealing with indexes
+		// so (low <= high) gives infinite loop
+		// (low < high) gets you to out of the loop
+    while(low < high) {
+        const mid:number = ~~((high+low) / 2);
+        // console.log("mid: ", mid);
+        if(daysForLimit(mid) > days) { // too many days
+            low = mid + 1;
+        } else {
+            high = mid;
+        }
+    }
+    
+    return low;
+};
