@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "target": "es6",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "outDir": "dist"
+  }, 
+  "lib": ["es2015"],
+  "include": [
+    "easy-top-q/tsCode/**/*",
+    "ms-top-q-card/**/*",
+    "ms-most-frequent/**/*",
+    "medium-top-q/**/*"
+  ],
+  "exclude": [
+    "easy-top-q/csCode/**/*",
+    "easy-top-q/jsCode/**/*",
+    "hard-top-q/"
+  ]
+}

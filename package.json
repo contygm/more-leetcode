@@ -1,0 +1,8 @@
+{
+	"name": "more-leetcode",
+	"version": "1.0.0",
+	"description": "TS answers to leetcode questions",
+	"scripts": {
+		"bs": "tsc && node dist/binarySearch.js"
+	}
+}
