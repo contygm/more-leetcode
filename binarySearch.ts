@@ -159,3 +159,32 @@ function shipWithinDays(weights: number[], days: number): number {
     
     return low;
 };
+
+// 287. Find the Duplicate Number
+function findDuplicate(nums: number[]): number {
+    let left:number = 0, 
+        right:number = nums.length - 1;
+    
+    let dupe:number = -1;
+    
+    while(left <= right) {
+        const mid:number = ~~((left+right)/2);
+        let count:number = 0;
+        
+        for (const num of nums) {
+            if(num <= mid) {
+                count++;
+            }
+        }
+        
+        if(count > mid) {
+            dupe = mid;
+            right = mid - 1;
+        } else {
+            left = mid + 1;
+        }
+        
+    }
+    
+    return dupe;
+};
