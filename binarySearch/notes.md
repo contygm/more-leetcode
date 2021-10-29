@@ -59,3 +59,5 @@ while(left > right) { // diff
 	}
 }
 ```
+
+If *no values < `target`* , `right === -1`

@@ -237,3 +237,31 @@ class TimeMap {
         return right > -1 ? stamps[right].value : "";
     }
 }
+
+// 540. Single Element in a Sorted Array
+function singleNonDuplicate(nums: number[]): number {
+    let left: number = 0,
+        right: number = nums.length - 1;
+    
+    while(left <= right) {
+        const mid: number = ~~((left+right)/2);
+        
+        let leftL: number = mid;
+        let rightL: number = nums.length - leftL - 1;
+                
+        if(nums[mid] === nums[mid+1]) { // next right matches
+            rightL--;
+        } else if (nums[mid] === nums[mid-1]) { // next left matches
+            leftL--;
+        } else {
+            return nums[mid]; // found it
+        }
+        
+        // exclude even length subarray
+        if(leftL % 2 === 0) { // left is even length subarray
+            left = mid + 1;
+        } else { // right is even length subarray
+            right = mid - 1;
+        }
+    }
+};
