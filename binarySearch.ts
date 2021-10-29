@@ -188,3 +188,51 @@ function findDuplicate(nums: number[]): number {
     
     return dupe;
 };
+
+// 981. Time Based Key-Value Store
+class TimeMap {
+    stampMap: Map<string, Array<{timestamp: number, value: string}>>
+
+    constructor() {
+       this.stampMap = new Map(); 
+    }
+
+    set(key: string, value: string, timestamp: number): void {
+        
+        // add key if needed
+        if(!this.stampMap.has(key)) {
+            this.stampMap.set(key, []);
+        } 
+        
+        // add timestamp+value
+        this.stampMap.get(key).push({timestamp, value});
+    }
+
+    get(key: string, timestamp: number): string {
+        
+        // no values
+        if(!this.stampMap.has(key)) {
+            return "";
+        }
+        
+        const stamps = this.stampMap.get(key);
+        let left = 0, 
+            right = stamps.length - 1;
+        
+        while(left <= right) {
+            const mid = ~~((left+right)/2);
+            
+            if(stamps[mid].timestamp === timestamp) {
+                return stamps[mid].value;
+            }
+            
+            if(stamps[mid].timestamp > timestamp) {
+                right = mid - 1;
+            } else {
+                left = mid + 1;
+            }
+        }
+        
+        
+        return right > -1 ? stamps[right].value : "";
+    }
