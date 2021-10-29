@@ -144,9 +144,6 @@ function shipWithinDays(weights: number[], days: number): number {
         high:number = weights.reduce((a, b) => a+b);
     
     // binary search for ideal weight
-	// NOTE: not dealing with indexes
-		// so (low <= high) gives infinite loop
-		// (low < high) gets you to out of the loop
     while(low < high) {
         const mid:number = ~~((high+low) / 2);
         // console.log("mid: ", mid);
@@ -239,6 +236,7 @@ class TimeMap {
 }
 
 // 540. Single Element in a Sorted Array
+// it's clicking
 function singleNonDuplicate(nums: number[]): number {
     let left: number = 0,
         right: number = nums.length - 1;
@@ -253,15 +251,49 @@ function singleNonDuplicate(nums: number[]): number {
             rightL--;
         } else if (nums[mid] === nums[mid-1]) { // next left matches
             leftL--;
-        } else {
-            return nums[mid]; // found it
         }
         
         // exclude even length subarray
         if(leftL % 2 === 0) { // left is even length subarray
             left = mid + 1;
-        } else { // right is even length subarray
+        } else if(rightL % 2 === 0) { // right is even length subarray
             right = mid - 1;
+        } else {
+            return nums[mid]; // found it
         }
     }
 };
+
+// 875. Koko Eating Bananas
+function minEatingSpeed(piles: number[], h: number): number {
+    
+    const daysNeeded = (cap: number): number => {
+        let days: number = 0;
+        
+        for(let pile of piles) {
+            days += Math.ceil(pile/cap);
+        }
+        
+        return days;
+    }
+
+    let low = 1,
+        high = Math.max(...piles);
+    
+    // bs
+    while(low < high) {
+        // NOTE: both version of mid will work
+        //  - they are equivalent
+        // const mid = low + ~~((high-low)/2); 
+        const mid = ~~((high+low)/2);
+        
+        if(daysNeeded(mid) > h) {
+            low = mid + 1;
+        } else {
+            high = mid;
+        }
+    }
+    
+    return low;
+};
+
