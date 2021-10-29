@@ -236,3 +236,4 @@ class TimeMap {
         
         return right > -1 ? stamps[right].value : "";
     }
+}
