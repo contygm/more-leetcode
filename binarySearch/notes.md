@@ -9,7 +9,10 @@ function search(nums: number[], target: number): number {
     
     while(left >= right) { 
 		// floor for whole number
-        const mid = left + ~~((right - left) / 2)
+        // NOTE: both version of mid will work
+        //  - they are equivalent
+        // const mid = low + ~~((high-low)/2); 
+        const mid = ~~((high+low)/2);
 
         if (nums[mid] === target) {
             return mid;
