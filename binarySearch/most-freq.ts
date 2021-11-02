@@ -54,37 +54,41 @@ class Solution {
 }
 
 // 4. Median of Two Sorted Arrays
-function findMedianSortedArrays(nums1: number[], nums2: number[]): number {    
+function findMedianSortedArrays(nums1: number[], nums2: number[]): number {  
+    const xLen = nums1.length,
+          yLen = nums2.length;
+    
+    // NOTE: SHORTER ONE MUST GO FIRST OR YOU'LL SPEND HOURS WONDERING WTF IS WRONG
+    if (xLen > yLen) {
+        return findMedianSortedArrays(nums2, nums1);
+    }
+    
     let left = 0,
-        right = nums1.length;
-        
+        right = xLen; 
+     
     while(left <= right) {
         const xMid = ~~((left+right)/2);
-        const yMid = ~~((nums1.length + nums2.length)/2) - xMid;
+        const yMid = ~~((xLen + yLen + 1)/2) - xMid; // +1 helps with odd 
         
-        const maxLeftX = nums1[xMid - 1] ?? Number.NEGATIVE_INFINITY;
-        const maxLeftY = nums2[yMid - 1] ?? Number.NEGATIVE_INFINITY;
+        // check for undefined + establish array bounds
+        const maxX_L = nums1[xMid - 1] ?? Number.NEGATIVE_INFINITY;
+        const maxY_L = nums2[yMid - 1] ?? Number.NEGATIVE_INFINITY;
         
-        const minRightX = nums1[xMid] ?? Number.POSITIVE_INFINITY;
-        const minRightY = nums2[yMid] ?? Number.POSITIVE_INFINITY;
+        const minX_R = nums1[xMid] ?? Number.POSITIVE_INFINITY;
+        const minY_R = nums2[yMid] ?? Number.POSITIVE_INFINITY;
         
-        // console.log("maxLeftX: ", maxLeftX, " minRightX: ", minRightX); 
-        // console.log("maxLeftY: ", maxLeftY, " minRightY: ", minRightY); 
-        
-        if( maxLeftX <= minRightY && maxLeftY <= minRightX) { // found
-            const rightMin = Math.min(minRightX, minRightY);
-            // console.log("leftMax ", leftMax);
-            // console.log("rightMin ", rightMin);
+        if( maxX_L <= minY_R && maxY_L <= minX_R) { // found
+            const leftMax = Math.max(maxX_L, maxY_L);
             
             // odd
             if((nums1.length + nums2.length) % 2 === 1) { 
-                return rightMin;
+                return leftMax;
             }
+            
             // even
-            // console.log("even endd ", (( leftMax + Math.min(minRightX, minRightY) )/2));
-            return (( Math.max(maxLeftX, maxLeftY) + Math.min(minRightX, minRightY) )/2);
-        } else if ( maxLeftY >  minRightX) {
-            // x ->
+            return (( Math.max(maxX_L, maxY_L) + Math.min(minX_R, minY_R) )/2);
+        } else if ( maxY_L >  minX_R ) {
+            // x -> 
             left = xMid + 1; 
         } else {
             // <- x
@@ -94,24 +98,3 @@ function findMedianSortedArrays(nums1: number[], nums2: number[]): number {
     
     return -1;
 };
-// base
-// [1,3]
-// [2]
-
-// [1,2]
-// [3,4]
-
-// [0,0]
-// [0,0]
-
-// []
-// [1]
-
-// [2]
-// [] ***
-// failing ones 
-// [1,2,3,5,6]
-// [4]
-
-// [3,4,5,6]
-// [1,2]
