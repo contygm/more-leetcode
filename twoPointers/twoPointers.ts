@@ -85,3 +85,25 @@ function middleNode(head: ListNode | null): ListNode | null {
     
     return slow;
 };
+
+// 680. Valid Palindrome II
+function validPalindrome(s: string): boolean {
+    
+    const checkValid = ( left:number, right:number, hasDeleted:boolean): boolean => {
+        while(left <= right) {
+            if( s[left] !== s[right] && hasDeleted) {
+                return false;
+            } else if ( s[left] !== s[right]) {
+                // skip right and left char, see which is valid
+                return checkValid(left+1, right, true) || checkValid(left, right-1, true);
+            }
+
+            left++;
+            right--;
+        }
+        
+        return true;
+    }
+    
+    return checkValid(0, s.length-1, false);
+};
