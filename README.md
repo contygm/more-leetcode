@@ -4,6 +4,7 @@ I've done about 60 problems in a different repo. I'll be doing more focused dril
 
 ## Topics 
 - [x] Binary Search
+- [ ] 2 Pointers
 - [ ] Binary Tree
 - [ ] Backtracking
 - [ ] DFS
