@@ -3,10 +3,13 @@
 ## Two Pointer Types
 | Type | Description |
 | --- | --- |
-| Fast & Slow Pointer | Both pointers start at the same place, BUT the fast pointer's position moves faster through the array. Good for finding cycles and midpoints.  |
-| Opposite Ends (Left+Right) | These pointers start at opposite ends of the structure. Good for comparisions and swapping. |
+| Fast & Slow Pointer | Both pointers start at the same place, BUT the fast pointer's position moves faster through the array. <br> **Good for:** finding cycles and midpoints.  |
+| Opposite Ends (Left+Right) | These pointers start at opposite ends of the structure. <br> **Good for:** comparisions and swapping |
+| Sliding Window | **Good for:** longest subarray |
 
-*Fast & Slow Pointer Example*
+
+<details>
+  <summary> Fast & Slow Pointer Example </summary>
 
 ```js
 
@@ -26,9 +29,12 @@ function middleNode(head) {
 
 ```
 
-*Left + Right Pointer Example*
+</details>
 
-```js
+<details>
+  <summary>Left + Right Pointer Example</summary>
+  
+  ```js
 function isPalindrome(str) {
 	let left = 0,
 		right = str.length - 1;
@@ -45,3 +51,14 @@ function isPalindrome(str) {
     return true;
 }
 ```
+</details>
+
+<details>
+  <summary>Sliding Window</summary>
+  
+  ```js
+function name(var) {
+	// code
+}
+```
+</details>

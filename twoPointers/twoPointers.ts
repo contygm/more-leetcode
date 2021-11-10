@@ -107,3 +107,26 @@ function validPalindrome(s: string): boolean {
     
     return checkValid(0, s.length-1, false);
 };
+
+// 167. Two Sum II - Input Array Is Sorted
+function twoSum(numbers: number[], target: number): number[] {
+    let left: number = 0,
+        right: number = numbers.length - 1;
+    
+    while(left < right) {
+        
+        const sum: number = numbers[left] + numbers[right];
+        
+        if(sum === target) {
+            // human index not CS one
+            return [++left, ++right];
+        } else if ( sum > target ) {
+            right--;
+        } else  {
+            left++;
+        }
+    }
+    
+    return [-1, -1];
+};
+
