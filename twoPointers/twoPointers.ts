@@ -130,3 +130,76 @@ function twoSum(numbers: number[], target: number): number[] {
     return [-1, -1];
 };
 
+// 1004. Max Consecutive Ones III
+function longestOnes(nums: number[], k: number): number {
+
+    let left: number = 0;
+    let right: number = 0;
+    
+    while(right < nums.length) {
+        if(nums[right] === 0) {
+            k--;
+        }
+        
+        if ( k < 0 ) {
+            // if left was 0, update k
+            k += 1 - nums[left];
+            left++;
+        }
+        
+        right++;
+    }
+    
+    // diff == length of subarray
+    return right - left;
+};
+
+function threeSum(nums) {
+    // asc order
+    nums.sort((a, b) => a-b);
+    
+    let res = [];
+    
+    const twoSum = (i, res) => {
+        
+        let low =  i + 1, 
+            high = nums.length - 1;
+        
+        while( low < high ) {
+
+            const sum = nums[i] + nums[low] + nums[high]; 
+            
+            if ( sum > 0 ) {
+                high--; 
+            } else if ( sum < 0 ) {
+                low++
+            } else { // equals 0
+                res.push( [nums[i], nums[low], nums[high]] );
+                
+                // keep going to check other 
+                // possible solutions for  i
+                high--;
+                low++;
+                
+                // skip dupes
+                while ( low < high && nums[low] === nums[low - 1]) {
+                    low++;
+                }
+            }
+            
+        } 
+    }
+    
+    for(let i = 0; i < nums.length; i++) {
+        if(nums[i] > 0) {
+            break;
+        }
+        
+        if( i === 0 || nums[i-1] !== nums[i] ) {
+            // console.log("2sum start: ", nums[i]);
+            twoSum(i, res);
+        }
+    }
+    
+    return res;
+};

@@ -56,9 +56,30 @@ function isPalindrome(str) {
 <details>
   <summary>Sliding Window</summary>
   
+  > Context: find the longest substring w/ only one `0`. LC #1004
+
+  ![Image of Sliding Window concept](sliding-window.png)
+
+  There is a `left` and `right` pointer. The `right` is used to **expand** the window, while the `left` is used to **contract** the window. 
+
+  Expand the window until we hit the limit of `0`s. Then, contract the window to observe the limit. 
+
   ```js
-function name(var) {
-	// code
+function name(array) {
+	  let left = right = 0;
+    
+    // BASIC sliding window
+    while(right < array.length) {
+        
+        if ( array[right] === 0 ) {
+            left++;
+        }
+        
+        right++;
+    }
+    
+    // diff == length of window
+    return right - left;
 }
 ```
 </details>
