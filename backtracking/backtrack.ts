@@ -178,3 +178,95 @@ function countArrangement(n: number): number {
     backtrack(1, []);
     return count;
 };
+
+// 78. Subsets
+function subsets(nums: number[]): number[][] {
+    let results: number[][] = [];
+    const length = nums.length;
+    
+    const backtrack = (first:number, combo:number[]):void => {        
+        if(combo.length === k) {
+            results.push([...combo]);
+            return;
+        }
+    
+        for(let i = first; i < length; i++) {
+            combo.push(nums[i]);
+            backtrack(i+1, combo);
+            combo.pop();
+        }
+        
+    }
+
+    let k;
+    for(k = 0; k <= length; k++) {
+        backtrack(0, []);
+    }
+    
+    return results;
+};
+
+// 39. Combination Sum
+function combinationSum(candidates: number[], target: number): number[][] {
+    
+    let results: number[][] = [];
+    
+    const backtracking = (first:number, combo:number[], diff: number):void => {
+        if(diff === 0) { // reached target
+            results.push([...combo]);
+            return;
+        } else if ( diff < 0 ) { // exceeded target
+            return;
+        }
+        
+        for(let i = first; i < candidates.length; i++) {
+            combo.push(candidates[i]);
+            // no i+1 cuz can repeat use of numbers
+            backtracking(i, combo, diff - candidates[i]);
+            combo.pop();
+        }
+        
+    }
+    
+    backtracking(0, [], target);
+    
+    return results;
+};
+
+// 131. Palindrome Partitioning
+function partition(s: string): string[][] {
+    const isPalindrome = (str: string): boolean => {
+        let left = 0,
+            right = str.length - 1;
+        while(left < right) {
+            if(str[left] !== str[right]) {
+                return false
+            }
+            left++;
+            right--;
+        }
+        return true;
+    };
+    
+    let results:string[][] = [];
+    
+    const backtrack = (first:number, combo:string[] ): void => {
+        if(first >= s.length) {
+            results.push([...combo]);
+            return;
+        }
+    
+        for(let i = first; i < s.length; i++) {
+            const subStr = s.substring(first, i+1);
+            if(isPalindrome(subStr)) {
+                combo.push(subStr);
+                backtrack(i+1, combo);
+                combo.pop();
+            }
+        }
+    }
+    
+    backtrack(0, []);
+    
+    return results;
+};
