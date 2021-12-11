@@ -270,3 +270,44 @@ function partition(s: string): string[][] {
     
     return results;
 };
+
+// 17. Letter Combinations of a Phone Number
+function letterCombinations(digits: string): string[] {
+
+    let result:string[] = [];
+    
+    const letters = {
+        "2":"abc",
+        "3":"def",
+        "4":"ghi",
+        "5":"jkl",
+        "6":"mno",
+        "7":"pqrs",
+        "8":"tuv",
+        "9":"wxyz"
+    };
+    
+    const backtrack = (combo:string[], index:number) => {
+        
+        if(combo.length === digits.length) {
+            result.push(combo.join(""));
+            return;
+        }
+        
+        // letters for corresponding digits
+        const digitLetters = letters[digits[index]];
+        console.log(digitLetters)
+        
+        for(let letter of digitLetters) {
+            combo.push(letter);
+            backtrack(combo, index+1);
+            combo.pop();
+        }
+    };
+    
+    if(digits.length > 0) {
+         backtrack([], 0);
+    }
+   
+    return result;
+};
