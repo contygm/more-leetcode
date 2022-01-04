@@ -31,13 +31,14 @@ function removeQueen(row: number, col: number, board:string[]): string[] {
 
 function solveNQueens(n: number): string[][] {
     
+	// NOTE: for N-Queens II just change results to a counter
     let results:string[][] = [];
     
     const backtrackQueens = (row:number, cols:number[], diags:number[], antiDiags:number[], state:string[]) => {
     
         // found valid solution cuz reached last row
         if(row === n) {
-            results.push([...state]);
+            results.push([...state]); // NOTE: and just increment here
             return;
         }
         
