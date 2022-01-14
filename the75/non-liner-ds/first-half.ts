@@ -33,6 +33,15 @@ function validate(node: TreeNode | null, low: number | null, high: number | null
 		validate(node.right, node.val, high);
 }
 
-
 // 226. Invert Binary Tree
 // Given the root of a binary tree, invert the tree, and return its root.
+function invertTree(root: TreeNode | null): TreeNode | null {
+    if(!root) return root;
+    
+    const left = invertTree(root.left);
+    const right = invertTree(root.right);
+    root.left = right;
+    root.right = left;
+     
+    return root;
+}; 
