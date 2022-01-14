@@ -102,3 +102,40 @@ function removeNthFromEnd(head: ListNode | null, n: number): ListNode | null {
     
     return dummyHead.next;
 };
+
+// 647. Palindromic Substrings
+// return the number of palindromic substrings in s
+// ex: "aaa" -> return 6 -> ["a","a","a","aa","aa","aaa"]
+function countSubstrings(s: string): number {    
+    
+    const palCount = (left:number, right:number): number => {
+        let count: number = 0;
+        
+        while(left <= right && left >= 0 && right < s.length) {
+            // not palindrome
+            if(s[left] !== s[right]) {
+                break;
+            }
+            
+            // still palindrome
+            left--;
+            right++;
+            count++;
+        }
+        
+        return count;
+    }
+    
+    let count: number = 0;
+    
+    for(let i = 0; i < s.length; i++) {
+        // odd
+        count += palCount(i, i);
+        
+        // even
+        count += palCount(i, i+1);
+    }
+     
+    return count;
+};
+
