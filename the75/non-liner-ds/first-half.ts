@@ -45,3 +45,23 @@ function invertTree(root: TreeNode | null): TreeNode | null {
      
     return root;
 }; 
+
+// 435. Non-overlapping Intervals
+// return the minimum number of intervals you need 
+// to remove to make the rest of the intervals non-overlapping.
+function eraseOverlapIntervals(intervals: number[][]): number {
+    
+    // sort by end
+    intervals.sort((a, b) => a[1] - b[1]);
+    
+    let prevEnd = intervals[0][1];
+    let count = 1;  // count non-overlapping intervals
+    
+    for(let i = 1; i < intervals.length; i++) {
+        if(intervals[i][0] >= prevEnd) {
+            prevEnd = intervals[i][1];
+            count++;
+        }
+    }
+    return intervals.length - count;
+};
