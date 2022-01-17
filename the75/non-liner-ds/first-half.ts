@@ -65,3 +65,57 @@ function eraseOverlapIntervals(intervals: number[][]): number {
     }
     return intervals.length - count;
 };
+
+// 297. Serialize and Deserialize Binary Tree
+/**
+ * functions will be called as such:
+ *      deserialize(serialize(root));
+ */
+// Encodes a tree to a single string.
+function serialize(root: TreeNode | null): string {
+    
+    if(!root) return "";
+    
+    // dfs
+    let stack: TreeNode[] = [root];
+    let result: string[] = [];
+    
+    while(stack.length) {
+        const curr: TreeNode = stack.pop();
+        
+        if(curr) {
+            result.push(`${curr.val}`);
+        } else { // end of path
+            result.push("N");
+            continue;
+        }
+        
+        
+        stack.push(curr.right);
+        stack.push(curr.left);
+        
+    }
+    // console.log(result)
+    return result.join(",");
+};
+
+// Decodes your encoded data to tree.
+function deserialize(data: string): TreeNode | null {
+    
+    const recurse = (dataArray: string[]) : TreeNode | null => {
+ 
+        if(dataArray.length < 1 || dataArray[0] === 'N') {
+            dataArray.shift();
+            return null;
+        } 
+        
+        const root: TreeNode = new TreeNode(parseInt(dataArray.shift()));
+        
+        root.left = recurse(dataArray);
+        root.right = recurse(dataArray);
+        
+        return root;
+    }
+    
+    return recurse(data.split(","));
+};
